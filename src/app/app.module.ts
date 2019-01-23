@@ -4,8 +4,9 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import {PokemonControllerService} from "./services/api/pokemon-controller-service/pokemon-controller.service";
 import {CachedDataService} from "./services/api/cache/cached-data.service";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -15,10 +16,10 @@ import {CachedDataService} from "./services/api/cache/cached-data.service";
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgbModule,
     AppRoutingModule
   ],
   providers: [
-    PokemonControllerService,
     CachedDataService
   ],
   bootstrap: [AppComponent]
