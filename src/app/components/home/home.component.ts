@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CachedDataService} from "../services/api/cache/cached-data.service";
+import {CachedDataService} from "../../services/api/cache/cached-data.service";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,9 @@ export class HomeComponent implements OnInit {
   constructor(private cache : CachedDataService) { }
 
   ngOnInit() {
-
+    if(this.cache) {
+      console.log("great!");
+    }
   }
 
 }

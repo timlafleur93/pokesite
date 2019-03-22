@@ -57,6 +57,7 @@ import {LocationControllerService} from "../location-controller-service/location
 import {MachineControllerService} from "../machine-controller-service/machine-controller.service";
 import {MoveControllerService} from "../move-controller/move-controller.service";
 import {Language} from "../../../types/Utility/Language";
+import {NamedAPIResourceList} from "../../../types/NamedAPIResourceList";
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,7 @@ import {Language} from "../../../types/Utility/Language";
 export class CachedDataService {
 
   private resourceList : APIResourceList;
+  private namedResourceList : NamedAPIResourceList;
 
   // berry stuff
   public cached_berries : Berry[];
@@ -150,12 +152,13 @@ export class CachedDataService {
     this.get_contest_data();
     this.get_encounters_data();
     this.get_evolutions_data();
-    this.get_games_data();
+
     this.get_item_data();
     this.get_locations_data();
     this.get_machines_data();
     this.get_moves_data();*/
     this.get_pokemon_data();
+    this.get_games_data();
   }
 
   // Berry Stuff
@@ -366,7 +369,7 @@ export class CachedDataService {
 
     this.gameService.findAllPokedexes(1,1).subscribe(
       response => {
-        this.resourceList = response;
+        this.namedResourceList = response;
         this.cached_pokedexes = new Array(response.results.length);
         for(let i = 0; i < response.results.length; i++){
           let strs : string[] = response.results[i].url.split('/');
@@ -699,10 +702,18 @@ export class CachedDataService {
 
   // pokemon stuff
   public get_pokemon_data() : void {
-    this.pokemonService.findAllPokemon(1,1).subscribe(
+    this.pokemonService.findAllPokemon(0,0).subscribe(
       response => {
         this.resourceList = response;
         this.cached_pokemon = new Array(response.results.length);
+        this.pokemonService.saveAllPokemon(response).subscribe(
+          response2 =>{
+            console.log(response);
+          },
+          err => {
+            console.error(err);
+          }
+        );
         for(let i = 0; i < response.results.length; i++){
           let strs : string[] = response.results[i].url.split('/');
           this.pokemonService.findPokemon(strs[6]).subscribe(

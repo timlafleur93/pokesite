@@ -7,6 +7,7 @@ import {Generation} from "../../../types/Games/Generation";
 import {Pokedex} from "../../../types/Games/Pokedex";
 import {Version} from "../../../types/Games/Version";
 import {VersionGroup} from "../../../types/Games/VersionGroup";
+import {NamedAPIResourceList} from "../../../types/NamedAPIResourceList";
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ export class GameControllerService {
     return this.http.get<Pokedex>(urls.pokeAPI_base + urls.pokedex_url + id + '/');
   }
 
-  public findAllPokedexes(limit : number, offset:number) : Observable<APIResourceList> {
-    return this.http.get<APIResourceList>(urls.pokeAPI_base + urls.pokedex_url);
+  public findAllPokedexes(limit : number, offset:number) : Observable<NamedAPIResourceList> {
+    return this.http.get<NamedAPIResourceList>(urls.pokeAPI_base + urls.pokedex_url);
   }
 
   public findVersion(id : string) : Observable<Version> {

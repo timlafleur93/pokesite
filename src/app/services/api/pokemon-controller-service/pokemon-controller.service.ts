@@ -35,6 +35,10 @@ export class PokemonControllerService {
     return this.http.get<APIResourceList>(urls.pokeAPI_base + urls.pokemon_url);
   }
 
+  public saveAllPokemon(apiResourceList : APIResourceList) : Observable<any>{
+    return this.http.post('http://localhost:8080/api-resource-list-api/save-api-resource-list', apiResourceList);
+  }
+
   public findAbility(id : string) : Observable<Ability> {
     return this.http.get<Ability>(urls.pokeAPI_base + urls.ability_url + id + '/');
   }
