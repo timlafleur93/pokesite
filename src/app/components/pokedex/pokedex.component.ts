@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {CachedDataService} from "../../services/api/cache/cached-data.service";
-import { FormControl, FormGroup, FormsModule} from "@angular/forms";
-import {GameControllerService} from "../../services/api/games-controller-service/game-controller.service";
-import {APIResourceList} from "../../types/APIResourceList";
-import {NamedAPIResource} from "../../types/Utility/NamedAPIResource";
-import {Pokedex} from "../../types/Games/Pokedex";
+import {Component, OnInit} from '@angular/core';
+import {CachedDataService} from '../../services/api/cache/cached-data.service';
+import {Pokedex} from '../../types/Games/Pokedex';
 
 @Component({
   selector: 'app-pokedex',
@@ -13,15 +9,17 @@ import {Pokedex} from "../../types/Games/Pokedex";
 })
 export class PokedexComponent implements OnInit {
 
-  generation : Pokedex;
-  pokedexes : Pokedex[];
+  generation: Pokedex;
+  pokedexes: Pokedex[];
 
-  constructor(private cache: CachedDataService) { }
+  hasloaded: boolean;
+  constructor(private cache: CachedDataService) {
+  }
 
   ngOnInit() {
     this.cache.get_games_data();
 
-    setTimeout(()=> {
+    setTimeout(() => {
       this.pokedexes = this.cache.cached_pokedexes;
       console.log(this.pokedexes);
     }, 3000);
